@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="CampaignDetailsQueryHandler.cs~RF622ab2f.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.3.0" />
+    <PackageReference Include="Riok.Mapperly" Version="3.6.0" />
+    <PackageReference Include="Serilog" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CreativePlatform.Campaign.Contracts\CreativePlatform.Campaign.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

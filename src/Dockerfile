@@ -1,0 +1,32 @@
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["ContentDistribution/ContentDistribution.csproj", "ContentDistribution/"]
+COPY ["CreativePlatform.Asset/CreativePlatform.Asset.csproj", "CreativePlatform.Asset/"]
+COPY ["CreativePlatform.Asset.Contracts/CreativePlatform.Asset.Contracts.csproj", "CreativePlatform.Asset.Contracts/"]
+COPY ["CreativePlatform.Campaign/CreativePlatform.Campaign.csproj", "CreativePlatform.Campaign/"]
+COPY ["CreativePlatform.Campaign.Contracts/CreativePlatform.Campaign.Contracts.csproj", "CreativePlatform.Campaign.Contracts/"]
+COPY ["CreativePlatform.Content/CreativePlatform.Content.csproj", "CreativePlatform.Content/"]
+COPY ["CreativePlatform.Order.Contracts/CreativePlatform.Order.Contracts.csproj", "CreativePlatform.Order.Contracts/"]
+COPY ["CreativePlatform.Order/CreativePlatform.Order.csproj", "CreativePlatform.Order/"]
+RUN dotnet restore "./ContentDistribution/ContentDistribution.csproj"
+COPY . .
+WORKDIR "/src/ContentDistribution"
+RUN dotnet build "./ContentDistribution.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./ContentDistribution.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "ContentDistribution.dll"]
