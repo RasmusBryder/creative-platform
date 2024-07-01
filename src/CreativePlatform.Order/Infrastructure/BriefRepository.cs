@@ -11,19 +11,20 @@ internal interface IBriefRepository
     /// <param name="briefs"></param>
     /// <param name="order"></param>
     /// <returns></returns>
-    Task<CampaignBrief[]> AddBriefsAsync(IEnumerable<CampaignBrief> briefs, OrderResource order);
+    Task<BriefResource[]> AddBriefsAsync(IEnumerable<BriefResource> briefs, OrderResource order);
 
-    Task<CampaignBrief?> GetBriefAsync(string briefId);
+    Task<BriefResource?> GetBriefAsync(string briefId);
 
-    Task<CampaignBrief[]> GetBriefsByOrderNumberAsync(string orderNumber);
-    Task UpdateBriefAsync(CampaignBrief brief);
+    Task<BriefResource[]> GetBriefsByOrderNumberAsync(string orderNumber);
+
+    Task<BriefResource?> UpdateBriefAsync(UpdateBriefResource brief);
 }
 
 internal class BriefRepositoryStub : IBriefRepository
 {
-    public Task<CampaignBrief[]> AddBriefsAsync(IEnumerable<CampaignBrief> briefs, OrderResource order)
+    public Task<BriefResource[]> AddBriefsAsync(IEnumerable<BriefResource> briefs, OrderResource order)
     {
-        var campaignBriefs = briefs as CampaignBrief[] ?? briefs.ToArray();
+        var campaignBriefs = briefs as BriefResource[] ?? briefs.ToArray();
         var idSuffix = 0;
         foreach (var brief in campaignBriefs)
         {
@@ -36,28 +37,52 @@ internal class BriefRepositoryStub : IBriefRepository
         return Task.FromResult(campaignBriefs.ToArray());
     }
 
-    public Task<CampaignBrief?> GetBriefAsync(string briefId)
+    public Task<BriefResource?> GetBriefAsync(string briefId)
     {
         var brief = BriefFaker.Generate();
         brief.BriefId = briefId;
         return Task.FromResult(brief)!;
     }
 
-    public Task<CampaignBrief[]> GetBriefsByOrderNumberAsync(string orderNumber)
+    public Task<BriefResource[]> GetBriefsByOrderNumberAsync(string orderNumber)
     {
         var briefs = BriefFaker.Generate(10);
         foreach (var brief in briefs)
         {
             brief.OrderNumber = orderNumber;
+            brief.AssetId = brief.BriefId.Replace("BRIEF", "ASSET");
         }
 
-        return Task.FromResult(briefs.ToArray());
+        return Task.FromResult(briefs.ToLookup(x => x.BriefId).Select(x => x.First()).ToArray());
     }
 
-    public Task UpdateBriefAsync(CampaignBrief brief)
+    public Task<BriefResource?> UpdateBriefAsync(UpdateBriefResource updateBrief)
     {
-        return Task.CompletedTask;
+        var brief = BriefFaker.Generate();
+        brief.BriefId = updateBrief.BriefId;
+        if (updateBrief.AssetId is not null)
+        {
+            brief.AssetId = updateBrief.AssetId;
+        }
+        if (updateBrief.Name is not null)
+        {
+            brief.Name = updateBrief.Name;
+        }
+        if (updateBrief.Description is not null)
+        {
+            brief.Description = updateBrief.Description;
+        }
+        if (updateBrief.Comments is not null)
+        {
+            brief.Comments = updateBrief.Comments;
+        }
+        if (updateBrief.Status is not null)
+        {
+            brief.Status = updateBrief.Status;
+        }
+        return Task.FromResult(brief)!;
     }
 
-    private static readonly CampaignBriefFaker BriefFaker = new();
+
+    private static readonly BriefFaker BriefFaker = new();
 }

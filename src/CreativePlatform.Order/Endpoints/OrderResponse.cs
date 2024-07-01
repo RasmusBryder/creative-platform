@@ -1,19 +1,24 @@
 ﻿namespace CreativePlatform.Order.Endpoints;
 
-public class OrderResponse
+public class OrderResponse(
+    Guid id,
+    Guid campaignId,
+    string orderNumber,
+    string requesterName,
+    DateTimeOffset orderDate)
 {
-    public Guid CampaignId { get; set; }
-    public Guid Id { get; set; }
-    public string OrderNumber { get; set; }
-    public string RequesterName { get; set; }
-    public DateTime OrderDate { get; set; }
-    public string CampaignName { get; set; }
+    public Guid Id { get; } = id;
+    public Guid CampaignId { get; } = campaignId;
+    public string? CampaignName { get; set; }
+    public string OrderNumber { get; set; } = orderNumber;
+    public string RequesterName { get; set; } = requesterName;
+    public DateTimeOffset OrderDate { get; set; } = orderDate;
     public int TotalBriefs => Briefs.Sum(b => b.Quantity);
-    public List<CampaignOrderBriefResponse> Briefs { get; set; }
+    public List<CampaignOrderBriefResponse> Briefs { get; set; } = [];
 
-    public class CampaignOrderBriefResponse
+    public class CampaignOrderBriefResponse(string briefId)
     {
-        public string BriefId { get; set; }
+        public string BriefId { get; set; } = briefId;
         public int Quantity { get; set; }
     }
 }

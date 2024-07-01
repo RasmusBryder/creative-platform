@@ -12,8 +12,6 @@ WORKDIR /src
 COPY ["ContentDistribution/ContentDistribution.csproj", "ContentDistribution/"]
 COPY ["CreativePlatform.Asset/CreativePlatform.Asset.csproj", "CreativePlatform.Asset/"]
 COPY ["CreativePlatform.Asset.Contracts/CreativePlatform.Asset.Contracts.csproj", "CreativePlatform.Asset.Contracts/"]
-COPY ["CreativePlatform.Campaign/CreativePlatform.Campaign.csproj", "CreativePlatform.Campaign/"]
-COPY ["CreativePlatform.Campaign.Contracts/CreativePlatform.Campaign.Contracts.csproj", "CreativePlatform.Campaign.Contracts/"]
 COPY ["CreativePlatform.Content/CreativePlatform.Content.csproj", "CreativePlatform.Content/"]
 COPY ["CreativePlatform.Order.Contracts/CreativePlatform.Order.Contracts.csproj", "CreativePlatform.Order.Contracts/"]
 COPY ["CreativePlatform.Order/CreativePlatform.Order.csproj", "CreativePlatform.Order/"]

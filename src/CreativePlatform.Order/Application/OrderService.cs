@@ -1,5 +1,6 @@
-﻿using CreativePlatform.Order.Endpoints;
+﻿using CreativePlatform.Order.Contracts;
 using CreativePlatform.Order.Infrastructure;
+using CreativePlatform.SharedKernel;
 
 namespace CreativePlatform.Order.Application;
 
@@ -9,11 +10,17 @@ internal interface IOrderService
     Task<OrderDto?> GetOrderByOrderNumberAsync(string orderNumber);
 }
 
-internal class OrderService(OrderMapper mapper, BriefMapper briefMapper, IOrderRepository repository, IBriefRepository briefRepository) : IOrderService
+
+internal class OrderService(OrderMapper mapper,
+    BriefMapper briefMapper,
+    IOrderRepository repository,
+    IBriefRepository briefRepository,
+    ICampaignRepository campaignRepository,
+    IEventBus eventBus) : IOrderService
 {
     public async Task<OrderDto> CreateOrderOfBriefsAsync(CreateOrderDto orderDto)
     {
-        // TODO
+        // TODO:
         // Rather than two separate repository calls, consider using a transaction to ensure that either all data is created,
         // or an error is shown
         var order = mapper.ToOrder(orderDto);
@@ -21,8 +28,17 @@ internal class OrderService(OrderMapper mapper, BriefMapper briefMapper, IOrderR
 
         var briefs = await briefRepository.AddBriefsAsync(orderDto.Briefs.Select(briefMapper.ToBrief), createdOrder);
 
+        var campaignTask = campaignRepository.GetAsync(order.CampaignId);
+
+        await eventBus.PublishAsync(new OrderCreatedIntegrationEvent(Guid.NewGuid(), order.OrderNumber));
+
         var result = mapper.ToOrderDto(order);
+
+        var campaign = await campaignTask;
+
         result.Briefs = briefs.Select(briefMapper.ToCampaignOrderBriefDto).ToList();
+        result.CampaignName = campaign?.Name;
+
         return result;
     }
 
@@ -35,10 +51,15 @@ internal class OrderService(OrderMapper mapper, BriefMapper briefMapper, IOrderR
             return null;
         }
 
+        var campaignTask = campaignRepository.GetAsync(order.CampaignId);
         var briefs = await briefRepository.GetBriefsByOrderNumberAsync(orderNumber);
 
+        var campaign = await campaignTask;
+
         var result = mapper.ToOrderDto(order);
+
         result.Briefs = briefs.Select(briefMapper.ToCampaignOrderBriefDto).ToList();
+        result.CampaignName = campaign?.Name;
         return result;
     }
 }

@@ -7,16 +7,18 @@ namespace CreativePlatform.Order.Application;
 
 internal interface IBriefService
 {
-    Task<CampaignBriefDto[]> GetBriefsByOrderNumberAsync(string orderNumber);
+    Task<BriefDto[]> GetBriefsByOrderNumberAsync(string orderNumber);
 
-    Task<CampaignBriefDto[]> GetBriefsByCampaignIdAsync(Guid campaignId);
+    Task<BriefDto[]> GetBriefsByCampaignIdAsync(Guid campaignId);
 
     Task UpdateBriefWithAssetIdAsync(string briefId, string assetId, CancellationToken cancellationToken = default);
+
+    Task<BriefDto?> UpdateBriefAsync(UpdateBriefDto brief);
 }
 
 internal class BriefService(IEventBus eventBus, BriefMapper mapper, IBriefRepository repository, IOrderRepository orderRepository) : IBriefService
 {
-    public async Task<CampaignBriefDto[]> GetBriefsByOrderNumberAsync(string orderNumber)
+    public async Task<BriefDto[]> GetBriefsByOrderNumberAsync(string orderNumber)
     {
         var order = await orderRepository.GetOrderByOrderNumberAsync(orderNumber);
         if (order is null)
@@ -28,10 +30,10 @@ internal class BriefService(IEventBus eventBus, BriefMapper mapper, IBriefReposi
         return briefs.Select(mapper.ToBriefDto).ToArray();
     }
 
-    public async Task<CampaignBriefDto[]> GetBriefsByCampaignIdAsync(Guid campaignId)
+    public async Task<BriefDto[]> GetBriefsByCampaignIdAsync(Guid campaignId)
     {
         var orders = await orderRepository.GetOrdersByCampaignIdAsync(campaignId);
-        var briefs = new List<CampaignBrief>();
+        var briefs = new List<BriefResource>();
         foreach (var order in orders)
         {
             var briefsOfOrder = await repository.GetBriefsByOrderNumberAsync(order.OrderNumber);
@@ -51,11 +53,28 @@ internal class BriefService(IEventBus eventBus, BriefMapper mapper, IBriefReposi
         }
         brief.AssetId = assetId;
 
-        await repository.UpdateBriefAsync(brief);
+        await repository.UpdateBriefAsync(mapper.ToUpdateBriefResource(brief));
 
         await eventBus.PublishAsync(
             new BriefUpdatedIntegrationEvent(Guid.NewGuid(), briefId, assetId, 
                 brief.OrderNumber, brief.CampaignId),
             cancellationToken);
+    }
+
+    public async Task<BriefDto?> UpdateBriefAsync(UpdateBriefDto briefRequest)
+    {
+        var updatedBrief = await repository.UpdateBriefAsync(mapper.ToUpdateBriefResource(briefRequest));
+
+        if (updatedBrief is null)
+        {
+            return null;
+        }
+
+        if (updatedBrief is { Status: BriefStatus.Released, AssetId: not null })
+        {
+            await eventBus.PublishAsync(new BriefReleasedIntegrationEvent(Guid.NewGuid(), updatedBrief.AssetId));
+        }
+
+        return mapper.ToBriefDto(updatedBrief);
     }
 }

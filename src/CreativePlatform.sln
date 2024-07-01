@@ -19,14 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content Module", "Content M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreativePlatform.Content", "CreativePlatform.Content\CreativePlatform.Content.csproj", "{60B66BBD-3AE2-4106-9E4F-1A6BFB6559B3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metadata", "Metadata", "{44B1AA29-44CA-4B38-B8C0-04716640B3E7}"
-	ProjectSection(SolutionItems) = preProject
-		Core\Metadata\AssetMetadata.json = Core\Metadata\AssetMetadata.json
-		Core\Metadata\BriefingMetadata.json = Core\Metadata\BriefingMetadata.json
-		Core\Metadata\ContentDistributionMetadata.json = Core\Metadata\ContentDistributionMetadata.json
-		Core\Metadata\OrderListMetadata.json = Core\Metadata\OrderListMetadata.json
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80619895-A14A-47A9-B073-B95B8474A448}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -34,15 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreativePlatform.Asset.Contracts", "CreativePlatform.Asset.Contracts\CreativePlatform.Asset.Contracts.csproj", "{101DA0F4-A268-4B1E-809D-3E77DD3B4802}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Campaign Module", "Campaign Module", "{041B5A0D-C00C-486B-BC58-2C03A6134BCA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreativePlatform.Campaign", "CreativePlatform.Campaign\CreativePlatform.Campaign.csproj", "{06E59BE0-C26B-4AA6-BA93-90FEE192225F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreativePlatform.Campaign.Contracts", "CreativePlatform.Campaign.Contracts\CreativePlatform.Campaign.Contracts.csproj", "{9C242EB9-520C-473D-9366-AD5F50AFECFC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{19163679-1F3B-4CFA-A11D-C6DBED1174BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreativePlatform.SharedKernel", "CreativePlatform.SharedKernel\CreativePlatform.SharedKernel.csproj", "{4FBE40F0-2DD1-4B46-B759-B4C3ABD9FBBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreativePlatform.SharedKernel", "CreativePlatform.SharedKernel\CreativePlatform.SharedKernel.csproj", "{4FBE40F0-2DD1-4B46-B759-B4C3ABD9FBBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,14 +60,6 @@ Global
 		{101DA0F4-A268-4B1E-809D-3E77DD3B4802}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{101DA0F4-A268-4B1E-809D-3E77DD3B4802}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{101DA0F4-A268-4B1E-809D-3E77DD3B4802}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06E59BE0-C26B-4AA6-BA93-90FEE192225F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06E59BE0-C26B-4AA6-BA93-90FEE192225F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06E59BE0-C26B-4AA6-BA93-90FEE192225F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06E59BE0-C26B-4AA6-BA93-90FEE192225F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C242EB9-520C-473D-9366-AD5F50AFECFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C242EB9-520C-473D-9366-AD5F50AFECFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C242EB9-520C-473D-9366-AD5F50AFECFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C242EB9-520C-473D-9366-AD5F50AFECFC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FBE40F0-2DD1-4B46-B759-B4C3ABD9FBBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FBE40F0-2DD1-4B46-B759-B4C3ABD9FBBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FBE40F0-2DD1-4B46-B759-B4C3ABD9FBBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -99,9 +77,6 @@ Global
 		{B45A5D58-7A53-4871-BFC5-B676965A5538} = {19163679-1F3B-4CFA-A11D-C6DBED1174BA}
 		{60B66BBD-3AE2-4106-9E4F-1A6BFB6559B3} = {B45A5D58-7A53-4871-BFC5-B676965A5538}
 		{101DA0F4-A268-4B1E-809D-3E77DD3B4802} = {D4DC18E4-071B-43C8-B584-09C4EB479981}
-		{041B5A0D-C00C-486B-BC58-2C03A6134BCA} = {19163679-1F3B-4CFA-A11D-C6DBED1174BA}
-		{06E59BE0-C26B-4AA6-BA93-90FEE192225F} = {041B5A0D-C00C-486B-BC58-2C03A6134BCA}
-		{9C242EB9-520C-473D-9366-AD5F50AFECFC} = {041B5A0D-C00C-486B-BC58-2C03A6134BCA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F4F82F2-3C20-4954-B0F4-0DF4AD2614F8}

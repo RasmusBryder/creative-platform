@@ -18,7 +18,7 @@ internal sealed class IntegrationEventProcessorJob(
             {
                 using IServiceScope scope = serviceScopeFactory.CreateScope();
 
-                IPublisher publisher = scope.ServiceProvider
+                var publisher = scope.ServiceProvider
                     .GetRequiredService<IPublisher>();
 
                 await publisher.Publish(integrationEvent, stoppingToken);

@@ -1,8 +1,8 @@
-﻿using CreativePlatform.Campaign.Contracts;
-using CreativePlatform.Campaign.Domain;
+﻿using CreativePlatform.Order.Contracts;
+using CreativePlatform.Order.Domain;
 using Riok.Mapperly.Abstractions;
 
-namespace CreativePlatform.Campaign.Application;
+namespace CreativePlatform.Order.Application;
 
 [Mapper]
 internal partial class CampaignMapper

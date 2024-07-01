@@ -3,17 +3,14 @@ using FastEndpoints;
 
 namespace CreativePlatform.Asset.Endpoints;
 
-public record CreateAssetRequest
-{
-    public string? BriefId { get; set; }
-    public string FileFormat { get; set; }
-    public string FileSize { get; set; }
-    public string Path { get; set; }
-    public string CreatedBy { get; set; }
-    public string UserName { get; set; }
-    public string? Comments { get; set; }
-    public string Preview { get; set; } // Could also be DAM reference
-}
+public record CreateAssetRequest(
+    string Name,
+    string Description,
+    string? BriefId,
+    string FileFormat,
+    string FileSize,
+    string UserName,
+    string? Comments);
 
 internal class Create(AssetMapper mapper, IAssetService assetService) : Endpoint<CreateAssetRequest, AssetDto>
 {

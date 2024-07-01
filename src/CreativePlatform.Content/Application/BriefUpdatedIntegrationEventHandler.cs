@@ -3,7 +3,8 @@ using MediatR;
 
 namespace CreativePlatform.Content.Application;
 
-internal class BriefUpdatedIntegrationEventHandler(IContentService service) : INotificationHandler<BriefUpdatedIntegrationEvent>
+internal class BriefUpdatedIntegrationEventHandler(IContentService service)
+    : INotificationHandler<BriefUpdatedIntegrationEvent>
 {
     public async Task Handle(BriefUpdatedIntegrationEvent notification, CancellationToken cancellationToken)
     {

@@ -19,6 +19,9 @@ public static class OrderServiceCollectionExtensions
         services.AddScoped<IOrderRepository, OrderRepositoryStub>();
         services.AddScoped<IBriefService, BriefService>();
         services.AddScoped<IBriefRepository, BriefRepositoryStub>();
+        services.AddScoped<ICampaignRepository, CampaignRepositoryStub>();
+        services.AddScoped<IUserNotificationService, UserNotificationServiceStub>();
+        services.AddSingleton<CampaignMapper>();
         services.AddSingleton<OrderMapper>();
         services.AddSingleton<BriefMapper>();
         mediatrAssemblies.Add(typeof(OrderServiceCollectionExtensions).Assembly);

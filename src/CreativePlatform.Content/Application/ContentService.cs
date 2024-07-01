@@ -1,4 +1,5 @@
-﻿using CreativePlatform.Content.Infrastructure;
+﻿using CreativePlatform.Content.Domain;
+using CreativePlatform.Content.Infrastructure;
 
 namespace CreativePlatform.Content.Application;
 
@@ -6,27 +7,32 @@ internal interface IContentService
 {
     Task<ContentDto[]> GetDownloadableContentAsync(Guid campaignId);
     Task<ContentDto[]> GetDownloadableContentAsync(string orderNumber);
-    Task UpdateAssetCampaignIdentifiersAsync(string assetId, Guid campaignId, string orderNumber, CancellationToken cancellationToken = default);
+
+    Task UpdateAssetCampaignIdentifiersAsync(string assetId, Guid? campaignId, string orderNumber,
+        CancellationToken cancellationToken = default);
+
+    Task UpdateContentStatus(string assetId, CancellationToken cancellationToken);
 }
 
 internal class ContentService(ContentMapper mapper, IContentRepository repository) : IContentService
 {
     public async Task<ContentDto[]> GetDownloadableContentAsync(Guid campaignId)
     {
-        var content = await repository.GetContentByCampaignIdAsync(campaignId);
+        ContentResource[] content = await repository.GetContentByCampaignIdAsync(campaignId);
         return content.Select(mapper.ToContentDto).ToArray();
     }
 
     public async Task<ContentDto[]> GetDownloadableContentAsync(string orderNumber)
     {
-        var content = await repository.GetContentByOrderNumberAsync(orderNumber);
+        ContentResource[] content = await repository.GetContentByOrderNumberAsync(orderNumber);
         return content.Select(mapper.ToContentDto).ToArray();
     }
 
-    public async Task UpdateAssetCampaignIdentifiersAsync(string assetId, Guid campaignId, string orderNumber, CancellationToken cancellationToken = default)
+    public async Task UpdateAssetCampaignIdentifiersAsync(string assetId, Guid? campaignId, string orderNumber,
+        CancellationToken cancellationToken = default)
     {
-        var content = await repository.GetContentByAssetIdAsync(assetId, cancellationToken);
-        foreach (var resource in content)
+        ContentResource[] content = await repository.GetContentByAssetIdAsync(assetId, cancellationToken);
+        foreach (ContentResource resource in content)
         {
             resource.CampaignId = campaignId;
             resource.OrderNumber = orderNumber;
@@ -34,5 +40,16 @@ internal class ContentService(ContentMapper mapper, IContentRepository repositor
 
         await repository.BulkUpdateContentAsync(content, cancellationToken);
     }
-}
 
+    public async Task UpdateContentStatus(string assetId, CancellationToken cancellationToken)
+    {
+        ContentResource[] content = await repository.GetContentByAssetIdAsync(assetId, cancellationToken);
+
+        foreach (ContentResource resource in content)
+        {
+            resource.Released = true;
+        }
+
+        await repository.BulkUpdateContentAsync(content, cancellationToken);
+    }
+}

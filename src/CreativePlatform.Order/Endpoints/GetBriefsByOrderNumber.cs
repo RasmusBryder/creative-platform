@@ -20,10 +20,7 @@ internal class GetBriefsByOrderNumber(BriefMapper mapper, IBriefService briefSer
 
         var results = briefs.Select(mapper.ToBriefResponse).ToArray();
 
-        // TODO: Get finished assets
-        var assets = briefs.ToDictionary(x => x.BriefId, x => x.BriefId.Replace("BRIEF", "ASSET"));
-
-        var response = new BriefsResponse(results, assets);
+        var response = new BriefsResponse(results);
 
         await SendAsync(response, cancellation: ct);
     }

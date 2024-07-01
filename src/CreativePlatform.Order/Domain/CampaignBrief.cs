@@ -1,16 +1,14 @@
 ﻿namespace CreativePlatform.Order.Domain;
 
-/// <summary>
-/// Constructors removed due to Bogus
-/// </summary>
-internal class CampaignBrief
+public class BriefResource(string name)
 {
-    public Guid CampaignId { get; set; }
+
+    public Guid? CampaignId { get; set; }
     public string BriefId { get; set; } = string.Empty;
-    public string OrderNumber { get; set; }
+    public string OrderNumber { get; set; } = string.Empty;
     public int Quantity { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string Name { get; set; } = name;
+    public string? Description { get; set; }
 
     /// <summary>
     /// Set when brief is processed
@@ -23,6 +21,6 @@ internal class CampaignBrief
     public DateTime? CreatedDate { get; set; }
 
     public string Status { get; set; } = BriefStatus.Pending;
-    public string Comments { get; set; } = string.Empty;
+    public string? Comments { get; set; }
     public string? AssetId { get; set; }
 }

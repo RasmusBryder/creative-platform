@@ -1,10 +1,11 @@
 ﻿using CreativePlatform.Asset.Contracts;
-using CreativePlatform.SharedKernel;
+using CreativePlatform.Order.Contracts;
 using MediatR;
 
 namespace CreativePlatform.Order.Application;
 
-internal class AssetCreatedIntegrationEventHandler(IEventBus eventBus, IBriefService service) : INotificationHandler<AssetCreatedIntegrationEvent>
+internal class AssetCreatedIntegrationEventHandler(IBriefService service)
+    : INotificationHandler<AssetCreatedIntegrationEvent>
 {
     public async Task Handle(AssetCreatedIntegrationEvent notification, CancellationToken cancellationToken)
     {
@@ -14,5 +15,14 @@ internal class AssetCreatedIntegrationEventHandler(IEventBus eventBus, IBriefSer
         }
 
         await service.UpdateBriefWithAssetIdAsync(notification.BriefId, notification.AssetId, cancellationToken);
+    }
+}
+
+internal class OrderCreatedIntegrationEventHandler(IUserNotificationService service)
+    : INotificationHandler<OrderCreatedIntegrationEvent>
+{
+    public async Task Handle(OrderCreatedIntegrationEvent notification, CancellationToken cancellationToken)
+    {
+        await service.SendCreatedOrderNotification();
     }
 }

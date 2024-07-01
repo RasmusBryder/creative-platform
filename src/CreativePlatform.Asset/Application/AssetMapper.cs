@@ -9,5 +9,5 @@ internal partial class AssetMapper
 {
     public partial CreateAssetDto ToCreateAssetDto(CreateAssetRequest asset);
     public partial AssetResource ToAsset(CreateAssetDto asset);
-    public partial AssetDto ToAssetDto(Domain.AssetResource assetResource);
+    public partial AssetDto ToAssetDto(AssetResource assetResource);
 }

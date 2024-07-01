@@ -1,9 +1,11 @@
-﻿namespace CreativePlatform.Order.Application;
+﻿namespace CreativePlatform.Order.Endpoints;
 
-/// <summary>
-/// An order of campaign briefs made to the creatives.
-/// </summary>
-public class BriefDto(string briefId, string name, string createdBy, DateTime createdDate, string status)
+public class BriefResponse(
+    string briefId,
+    string name,
+    string createdBy,
+    DateTime createdDate,
+    string status)
 {
     public string BriefId { get; set; } = briefId;
     public string? AssetId { get; set; }

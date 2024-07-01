@@ -1,6 +1,5 @@
 using ContentDistribution;
 using CreativePlatform.Asset;
-using CreativePlatform.Campaign;
 using CreativePlatform.Content;
 using CreativePlatform.Order;
 using FastEndpoints;
@@ -29,7 +28,6 @@ builder.Services.AddFastEndpoints()
 
 List<Assembly> mediatrAssemblies = [typeof(ContentDistribution.Program).Assembly];
 builder.Services
-    .AddCampaignModule(logger, mediatrAssemblies)
     .AddOrderModule(builder.Configuration, logger, mediatrAssemblies)
     .AddAssetModule(builder.Configuration, logger, mediatrAssemblies)
     .AddContentModule(builder.Configuration, logger, mediatrAssemblies);

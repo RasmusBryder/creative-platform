@@ -24,8 +24,6 @@ internal class GetByOrderNumber(OrderMapper mapper, IOrderService orderService) 
         }
 
         var result = mapper.ToOrderResponse(order);
-        // TODO: Provide campaign metadata
-        result.CampaignName = "Star Wars Anniversary";
         await SendAsync(result, cancellation: ct);
     }
 }

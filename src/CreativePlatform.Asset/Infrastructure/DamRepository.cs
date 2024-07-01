@@ -9,12 +9,12 @@ internal interface IDamRepository
     /// </summary>
     /// <param name="assetResource"></param>
     /// <returns></returns>
-    Task<AssetDamMetadata> UploadAsset(Domain.AssetResource assetResource);
+    Task<AssetDamMetadata> UploadAsset(AssetResource assetResource);
 }
 
 internal class DamRepositoryStub : IDamRepository
 {
-    public Task<AssetDamMetadata> UploadAsset(Domain.AssetResource assetResource)
+    public Task<AssetDamMetadata> UploadAsset(AssetResource assetResource)
     {
         return Task.FromResult(new AssetDamMetadata
         {

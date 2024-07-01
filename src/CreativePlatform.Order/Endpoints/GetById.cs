@@ -1,13 +1,13 @@
-﻿using CreativePlatform.Campaign.Application;
-using CreativePlatform.Campaign.Infrastructure;
+﻿using CreativePlatform.Order.Application;
+using CreativePlatform.Order.Infrastructure;
 using FastEndpoints;
 
-namespace CreativePlatform.Campaign.Endpoints;
+namespace CreativePlatform.Order.Endpoints;
 
-public record GetByIdRequest(Guid Id);
+public record GetCampaignByIdRequest(Guid Id);
 
-internal class GetById(CampaignMapper mapper, ICampaignRepository campaignRepository)
-    : Endpoint<GetByIdRequest, CampaignDto>
+internal class GetCampaignById(CampaignMapper mapper, ICampaignRepository campaignRepository)
+    : Endpoint<GetCampaignByIdRequest, CampaignDto>
 {
     public override void Configure()
     {
@@ -15,7 +15,7 @@ internal class GetById(CampaignMapper mapper, ICampaignRepository campaignReposi
         AllowAnonymous(); // TODO: Add authentication
     }
 
-    public override async Task HandleAsync(GetByIdRequest req, CancellationToken ct)
+    public override async Task HandleAsync(GetCampaignByIdRequest req, CancellationToken ct)
     {
         var campaign = await campaignRepository.GetAsync(req.Id);
 

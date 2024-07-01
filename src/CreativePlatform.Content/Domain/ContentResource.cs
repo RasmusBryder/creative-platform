@@ -7,4 +7,5 @@ public class ContentResource(string assetId, string name, string externalFileUrl
     public string ExternalFileUrl { get; set; } = externalFileUrl;
     public Guid? CampaignId { get; set; }
     public string? OrderNumber { get; set; }
+    public bool Released { get; set; } = false;
 }

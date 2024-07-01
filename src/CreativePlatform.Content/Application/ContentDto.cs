@@ -1,10 +1,10 @@
 ﻿namespace CreativePlatform.Content.Application;
 
-public class ContentDto
+public class ContentDto(string assetId, string externalFileUrl)
 {
-    public string AssetId { get; set; }
-    public string Name { get; set; }
+    public string AssetId { get; set; } = assetId;
+    public string? Name { get; set; }
 
     // Is updated
-    public string ExternalFileUrl { get; set; }
+    public string ExternalFileUrl { get; set; } = externalFileUrl;
 }

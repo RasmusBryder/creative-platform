@@ -13,6 +13,8 @@ internal interface IContentRepository
 
 internal class ContentRepositoryStub : IContentRepository
 {
+    private static readonly Faker Faker = new();
+
     public Task<ContentResource[]> GetContentByCampaignIdAsync(Guid campaignId)
     {
         return Task.FromResult(GenerateFakeContent().ToArray());
@@ -33,16 +35,14 @@ internal class ContentRepositoryStub : IContentRepository
         return Task.CompletedTask;
     }
 
-    private static readonly Faker Faker = new();
-
-    private static IEnumerable<ContentResource> GenerateFakeContent() 
+    private static IEnumerable<ContentResource> GenerateFakeContent()
     {
         for (var i = 0; i < 10; i++)
         {
             var idSuffix = Faker.Random.Number(0, 99).ToString().PadLeft(2, '0');
             var assetId = $"ASSET0{idSuffix}";
             yield return new ContentResource(assetId,
-                Faker.Commerce.ProductName(), 
+                Faker.Commerce.ProductName(),
                 $"https://example.com/assets/{assetId.ToLower()}.{Faker.System.CommonFileExt()}");
         }
     }

@@ -16,11 +16,10 @@ internal class GetByOrderNumber(IContentService contentService)
 
     public override async Task HandleAsync(GetByOrderNumberRequest req, CancellationToken ct)
     {
-        var content = await contentService.GetDownloadableContentAsync(req.OrderNumber);
+        ContentDto[] content = await contentService.GetDownloadableContentAsync(req.OrderNumber);
 
         var result = new CampaignContentDto(content);
 
         await SendAsync(result, cancellation: ct);
     }
 }
-

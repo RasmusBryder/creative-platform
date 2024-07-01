@@ -13,16 +13,13 @@
     <PackageReference Include="FastEndpoints" Version="5.26.0" />
     <PackageReference Include="FastEndpoints.Security" Version="5.26.0" />
     <PackageReference Include="FastEndpoints.Swagger" Version="5.26.0" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
     <PackageReference Include="MediatR" Version="12.3.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CreativePlatform.Asset\CreativePlatform.Asset.csproj" />
-    <ProjectReference Include="..\CreativePlatform.Campaign\CreativePlatform.Campaign.csproj" />
     <ProjectReference Include="..\CreativePlatform.Content\CreativePlatform.Content.csproj" />
     <ProjectReference Include="..\CreativePlatform.Order\CreativePlatform.Order.csproj" />
     <ProjectReference Include="..\CreativePlatform.SharedKernel\CreativePlatform.SharedKernel.csproj" />
