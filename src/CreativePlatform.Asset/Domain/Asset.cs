@@ -1,9 +1,9 @@
-﻿namespace CreativePlatform.Asset;
+﻿namespace CreativePlatform.Asset.Domain;
 
 /// <summary>
 /// Constructors removed due to Bogus
 /// </summary>
-internal class Asset
+internal class AssetResource
 {
     public string AssetId { get; set; }
     public string BriefId { get; set; }

@@ -1,9 +1,10 @@
-﻿using Riok.Mapperly.Abstractions;
+﻿using CreativePlatform.Content.Domain;
+using Riok.Mapperly.Abstractions;
 
 namespace CreativePlatform.Content.Application;
 
 [Mapper]
 internal partial class ContentMapper
 {
-    public partial ContentDto ToContentDto(Content content);
+    public partial ContentDto ToContentDto(ContentResource content);
 }

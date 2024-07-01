@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CreativePlatform.Asset.Contracts\CreativePlatform.Asset.Contracts.csproj" />
     <ProjectReference Include="..\CreativePlatform.Order.Contracts\CreativePlatform.Order.Contracts.csproj" />
   </ItemGroup>
 

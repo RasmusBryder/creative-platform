@@ -1,4 +1,4 @@
-﻿namespace CreativePlatform.Order;
+﻿namespace CreativePlatform.Order.Application;
 
 /// <summary>
 /// An order of campaign briefs made to the creatives.

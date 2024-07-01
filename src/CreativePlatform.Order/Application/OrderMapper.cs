@@ -1,4 +1,5 @@
 ﻿using CreativePlatform.Order.Contracts;
+using CreativePlatform.Order.Domain;
 using CreativePlatform.Order.Endpoints;
 using Riok.Mapperly.Abstractions;
 
@@ -11,9 +12,9 @@ internal partial class OrderMapper
 
     public partial OrderDetails ToOrderDetails(OrderDto order);
 
-    public partial OrderDto ToOrderDto(Order order);
+    public partial OrderDto ToOrderDto(OrderResource order);
 
-    public partial Order ToOrder(CreateOrderDto orderDto);
+    public partial OrderResource ToOrder(CreateOrderDto orderDto);
 
     public partial OrderResponse ToOrderResponse(OrderDto order);
 }

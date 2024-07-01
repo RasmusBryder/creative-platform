@@ -4,9 +4,12 @@ namespace CreativePlatform.Order.Contracts;
 
 public class OrderDetails
 {
-    public string CampaignId { get; set; }
+    public Guid CampaignId { get; set; }
     public string OrderNumber { get; set; }
-    public string[] BriefIds { get; set; }
 }
 
+/// <summary>
+/// For extraction of order information to other modules if necessary
+/// </summary>
+/// <param name="OrderNumber"></param>
 public record OrderDetailsQuery(string OrderNumber) : IRequest<OrderDetails?>;

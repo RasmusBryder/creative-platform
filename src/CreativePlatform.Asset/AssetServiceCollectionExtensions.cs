@@ -18,7 +18,7 @@ public static class AssetServiceCollectionExtensions
         services.AddScoped<IAssetService, AssetService>();
         services.AddScoped<IAssetRepository, AssetRepositoryStub>();
         services.AddScoped<IDamRepository, DamRepositoryStub>();
-        services.AddSingleton<Application.AssetMapper>();
+        services.AddSingleton<AssetMapper>();
         mediatrAssemblies.Add(typeof(AssetServiceCollectionExtensions).Assembly);
 
         logger.Information("{Module} module services registered", "Asset");

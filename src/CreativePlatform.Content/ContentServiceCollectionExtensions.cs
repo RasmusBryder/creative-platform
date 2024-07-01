@@ -17,7 +17,7 @@ public static class ContentServiceCollectionExtensions
     {
         services.AddScoped<IContentService, ContentService>();
         services.AddScoped<IContentRepository, ContentRepositoryStub>();
-        services.AddSingleton<Application.ContentMapper>();
+        services.AddSingleton<ContentMapper>();
         mediatrAssemblies.Add(typeof(ContentServiceCollectionExtensions).Assembly);
 
         logger.Information("{Module} module services registered", "Content");

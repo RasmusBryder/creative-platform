@@ -9,7 +9,7 @@ internal record CreateOrderRequest(Guid CampaignId, string RequesterName, List<C
 
 }
 
-internal class CreateOrder(IOrderService orderService) : Endpoint<CreateOrderRequest, OrderResponse>
+internal class CreateOrder(OrderMapper mapper, IOrderService orderService) : Endpoint<CreateOrderRequest, OrderResponse>
 {
     public override void Configure()
     {
@@ -19,7 +19,6 @@ internal class CreateOrder(IOrderService orderService) : Endpoint<CreateOrderReq
 
     public override async Task HandleAsync(CreateOrderRequest req, CancellationToken ct)
     {
-        var mapper = new Application.OrderMapper();
         CreateOrderDto order = mapper.ToCreateOrderDto(req);
 
         OrderDto createdOrder = await orderService.CreateOrderOfBriefsAsync(order);

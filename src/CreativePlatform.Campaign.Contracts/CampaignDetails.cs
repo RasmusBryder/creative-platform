@@ -4,10 +4,13 @@ namespace CreativePlatform.Campaign.Contracts;
 
 public class CampaignDetails {
 
-    public string Id { get; set; }
+    public Guid Id { get; set; }
     public string DistributionDate { get; set; }
     public string[] DistributionChannels { get; set; }
     public string[] DistributionMethods { get; set; }
 }
 
-public record CampaignDetailsQuery(string Id) : IRequest<CampaignDetails?>;
+/// <summary>
+/// For extraction of campaign information to other modules if necessary
+/// </summary>
+public record CampaignDetailsQuery(Guid Id) : IRequest<CampaignDetails?>;

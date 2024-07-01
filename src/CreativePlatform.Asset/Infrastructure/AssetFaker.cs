@@ -1,8 +1,9 @@
 ﻿using Bogus;
+using CreativePlatform.Asset.Domain;
 
 namespace CreativePlatform.Asset.Infrastructure;
 
-internal sealed class AssetFaker : Faker<Asset>
+internal sealed class AssetFaker : Faker<Domain.AssetResource>
 {
     public AssetFaker()
     {

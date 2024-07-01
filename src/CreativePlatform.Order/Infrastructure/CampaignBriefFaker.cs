@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using CreativePlatform.Order.Domain;
 
 namespace CreativePlatform.Order.Infrastructure;
 

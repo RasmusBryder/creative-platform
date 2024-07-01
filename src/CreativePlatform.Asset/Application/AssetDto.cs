@@ -1,4 +1,4 @@
-﻿namespace CreativePlatform.Asset;
+﻿namespace CreativePlatform.Asset.Application;
 
 /// <summary>
 ///     Asset, made as a result of campaign briefs, containing state of approval.

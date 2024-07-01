@@ -1,18 +1,19 @@
 ﻿using Bogus;
+using CreativePlatform.Asset.Domain;
 
 namespace CreativePlatform.Asset.Infrastructure;
 
 internal interface IAssetRepository
 {
-    Task<Asset?> GetAsync(string id);
-    Task<Asset> AddAsync(Asset asset);
-    Task<Asset> UpdateAsync(Asset asset);
-    Task<Asset[]> GetByBriefIdsAsync(string[] briefIds);
+    Task<AssetResource?> GetAsync(string id);
+    Task<AssetResource> AddAsync(AssetResource assetResource);
+    Task<AssetResource> UpdateAsync(AssetResource assetResource);
+    Task<AssetResource[]> GetByBriefIdsAsync(string[] briefIds);
 }
 
 internal class AssetRepositoryStub : IAssetRepository
 {
-    public Task<Asset?> GetAsync(string id)
+    public Task<AssetResource?> GetAsync(string id)
     {
         var extension = Faker.System.CommonFileExt();
         var customAssetFaker = AssetFaker.RuleFor(x => x.AssetId, id)
@@ -22,24 +23,24 @@ internal class AssetRepositoryStub : IAssetRepository
         return Task.FromResult(customAssetFaker.Generate())!;
     }
 
-    public Task<Asset> AddAsync(Asset asset)
+    public Task<AssetResource> AddAsync(AssetResource assetResource)
     {
         var fakeAsset = AssetFaker.Generate();
 
-        asset.AssetId = fakeAsset.AssetId;
-        asset.VersionNumber = fakeAsset.VersionNumber;
-        asset.Status = "Pending";
-        return Task.FromResult(asset);
+        assetResource.AssetId = fakeAsset.AssetId;
+        assetResource.VersionNumber = fakeAsset.VersionNumber;
+        assetResource.Status = "Pending";
+        return Task.FromResult(assetResource);
     }
 
-    public Task<Asset> UpdateAsync(Asset asset)
+    public Task<AssetResource> UpdateAsync(AssetResource assetResource)
     {
-        return Task.FromResult(asset);
+        return Task.FromResult(assetResource);
     }
 
-    public Task<Asset[]> GetByBriefIdsAsync(string[] briefIds)
+    public Task<AssetResource[]> GetByBriefIdsAsync(string[] briefIds)
     {
-        var assets = new List<Asset>();
+        var assets = new List<AssetResource>();
         foreach (var briefId in briefIds)
         {
             var fakeAssets = AssetFaker.Generate(10);
@@ -49,7 +50,7 @@ internal class AssetRepositoryStub : IAssetRepository
         return Task.FromResult(assets.ToArray());
     }
 
-    private static Faker<Asset> AssetFaker => new AssetFaker();
+    private static Faker<AssetResource> AssetFaker => new AssetFaker();
     private static Faker Faker => new();
 
 }

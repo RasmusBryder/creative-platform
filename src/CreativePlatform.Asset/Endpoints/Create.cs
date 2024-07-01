@@ -5,7 +5,7 @@ namespace CreativePlatform.Asset.Endpoints;
 
 public record CreateAssetRequest
 {
-    public string BriefId { get; set; }
+    public string? BriefId { get; set; }
     public string FileFormat { get; set; }
     public string FileSize { get; set; }
     public string Path { get; set; }
@@ -15,7 +15,7 @@ public record CreateAssetRequest
     public string Preview { get; set; } // Could also be DAM reference
 }
 
-internal class Create(IAssetService assetService) : Endpoint<CreateAssetRequest, AssetDto>
+internal class Create(AssetMapper mapper, IAssetService assetService) : Endpoint<CreateAssetRequest, AssetDto>
 {
     public override void Configure()
     {
@@ -25,7 +25,6 @@ internal class Create(IAssetService assetService) : Endpoint<CreateAssetRequest,
 
     public override async Task HandleAsync(CreateAssetRequest req, CancellationToken ct)
     {
-        var mapper = new AssetMapper();
         CreateAssetDto asset = mapper.ToCreateAssetDto(req);
 
         AssetDto createdAsset = await assetService.CreateAssetAsync(asset);

@@ -1,4 +1,4 @@
-namespace CreativePlatform.Asset;
+namespace CreativePlatform.Asset.Application;
 
 internal record CreateAssetDto
 {

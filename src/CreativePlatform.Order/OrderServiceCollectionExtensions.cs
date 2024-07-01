@@ -19,8 +19,8 @@ public static class OrderServiceCollectionExtensions
         services.AddScoped<IOrderRepository, OrderRepositoryStub>();
         services.AddScoped<IBriefService, BriefService>();
         services.AddScoped<IBriefRepository, BriefRepositoryStub>();
-        services.AddSingleton<Application.OrderMapper>();
-        services.AddSingleton<Application.BriefMapper>();
+        services.AddSingleton<OrderMapper>();
+        services.AddSingleton<BriefMapper>();
         mediatrAssemblies.Add(typeof(OrderServiceCollectionExtensions).Assembly);
 
         logger.Information("{Module} module services registered", "Order");

@@ -1,4 +1,6 @@
-﻿namespace CreativePlatform.Order.Infrastructure;
+﻿using CreativePlatform.Order.Domain;
+
+namespace CreativePlatform.Order.Infrastructure;
 
 
 internal interface IBriefRepository
@@ -7,16 +9,19 @@ internal interface IBriefRepository
     /// Bulk insert of briefs
     /// </summary>
     /// <param name="briefs"></param>
-    /// <param name="orderId"></param>
+    /// <param name="order"></param>
     /// <returns></returns>
-    Task<CampaignBrief[]> AddBriefsAsync(IEnumerable<CampaignBrief> briefs, Guid orderId);
+    Task<CampaignBrief[]> AddBriefsAsync(IEnumerable<CampaignBrief> briefs, OrderResource order);
 
-    Task<CampaignBrief[]> GetBriefsByOrderIdAsync(Guid orderId);
+    Task<CampaignBrief?> GetBriefAsync(string briefId);
+
+    Task<CampaignBrief[]> GetBriefsByOrderNumberAsync(string orderNumber);
+    Task UpdateBriefAsync(CampaignBrief brief);
 }
 
 internal class BriefRepositoryStub : IBriefRepository
 {
-    public Task<CampaignBrief[]> AddBriefsAsync(IEnumerable<CampaignBrief> briefs, Guid orderId)
+    public Task<CampaignBrief[]> AddBriefsAsync(IEnumerable<CampaignBrief> briefs, OrderResource order)
     {
         var campaignBriefs = briefs as CampaignBrief[] ?? briefs.ToArray();
         var idSuffix = 0;
@@ -24,21 +29,34 @@ internal class BriefRepositoryStub : IBriefRepository
         {
             var id = $"BRIEF0{(++idSuffix).ToString().PadLeft(2, '0')}";
             brief.BriefId = id;
-            brief.OrderId = orderId;
+            brief.OrderNumber = order.OrderNumber;
+            brief.CampaignId = order.CampaignId;
         }
 
         return Task.FromResult(campaignBriefs.ToArray());
     }
 
-    public Task<CampaignBrief[]> GetBriefsByOrderIdAsync(Guid orderId)
+    public Task<CampaignBrief?> GetBriefAsync(string briefId)
+    {
+        var brief = BriefFaker.Generate();
+        brief.BriefId = briefId;
+        return Task.FromResult(brief)!;
+    }
+
+    public Task<CampaignBrief[]> GetBriefsByOrderNumberAsync(string orderNumber)
     {
         var briefs = BriefFaker.Generate(10);
         foreach (var brief in briefs)
         {
-            brief.OrderId = orderId;
+            brief.OrderNumber = orderNumber;
         }
 
         return Task.FromResult(briefs.ToArray());
+    }
+
+    public Task UpdateBriefAsync(CampaignBrief brief)
+    {
+        return Task.CompletedTask;
     }
 
     private static readonly CampaignBriefFaker BriefFaker = new();

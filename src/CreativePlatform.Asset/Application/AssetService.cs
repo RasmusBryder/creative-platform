@@ -1,4 +1,6 @@
+using CreativePlatform.Asset.Contracts;
 using CreativePlatform.Asset.Infrastructure;
+using CreativePlatform.SharedKernel;
 
 namespace CreativePlatform.Asset.Application;
 
@@ -9,7 +11,7 @@ internal interface IAssetService
     Task<AssetDto[]> GetByBriefIdsAsync(string[] briefIds);
 }
 
-internal class AssetService(IAssetRepository repository, IDamRepository damRepository, AssetMapper mapper) : IAssetService
+internal class AssetService(IEventBus eventBus, IAssetRepository repository, IDamRepository damRepository, AssetMapper mapper) : IAssetService
 {
     public async Task<AssetDto> CreateAssetAsync(CreateAssetDto assetDto)
     {
@@ -23,6 +25,8 @@ internal class AssetService(IAssetRepository repository, IDamRepository damRepos
         asset.Path = metadata.Path;
         asset.Preview = metadata.Preview;
         var finalAsset = await repository.UpdateAsync(asset);
+
+        await eventBus.PublishAsync(new AssetCreatedIntegrationEvent(Guid.NewGuid(), finalAsset.AssetId, finalAsset.BriefId, finalAsset.Path));
         return mapper.ToAssetDto(finalAsset);
     }
 

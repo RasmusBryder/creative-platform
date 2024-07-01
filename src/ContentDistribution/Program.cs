@@ -1,3 +1,4 @@
+using ContentDistribution;
 using CreativePlatform.Asset;
 using CreativePlatform.Campaign;
 using CreativePlatform.Content;
@@ -8,6 +9,7 @@ using FastEndpoints.Swagger;
 using Serilog;
 using System.Reflection;
 using ILogger = Serilog.ILogger;
+using IEventBus = CreativePlatform.SharedKernel.IEventBus;
 
 ILogger logger = Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
@@ -31,6 +33,11 @@ builder.Services
     .AddOrderModule(builder.Configuration, logger, mediatrAssemblies)
     .AddAssetModule(builder.Configuration, logger, mediatrAssemblies)
     .AddContentModule(builder.Configuration, logger, mediatrAssemblies);
+
+builder.Services
+    .AddSingleton<InMemoryMessageQueue>()
+    .AddSingleton<IEventBus, EventBus>()
+    .AddHostedService<IntegrationEventProcessorJob>();
 
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(mediatrAssemblies.ToArray()));
 

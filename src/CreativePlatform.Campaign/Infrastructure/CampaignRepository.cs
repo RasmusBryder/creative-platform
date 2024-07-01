@@ -1,15 +1,17 @@
-﻿namespace CreativePlatform.Campaign.Infrastructure;
+﻿using CreativePlatform.Campaign.Domain;
+
+namespace CreativePlatform.Campaign.Infrastructure;
 
 public interface ICampaignRepository
 {
-    Task<Campaign?> GetAsync(string id);
+    Task<CampaignResource?> GetAsync(Guid id);
 }
 
 public class CampaignRepositoryStub : ICampaignRepository
 {
-    public Task<Campaign?> GetAsync(string id)
+    public Task<CampaignResource?> GetAsync(Guid id)
     {
-        return Task.FromResult(new Campaign(id,
+        return Task.FromResult(new CampaignResource(id,
             "ToBeDefined",
             [
                 "Websites", "Social Media", "Owned"

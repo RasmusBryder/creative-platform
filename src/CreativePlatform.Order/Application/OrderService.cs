@@ -19,7 +19,7 @@ internal class OrderService(OrderMapper mapper, BriefMapper briefMapper, IOrderR
         var order = mapper.ToOrder(orderDto);
         var createdOrder = await repository.CreateOrderAsync(order);
 
-        var briefs = await briefRepository.AddBriefsAsync(orderDto.Briefs.Select(briefMapper.ToBrief), createdOrder.OrderId);
+        var briefs = await briefRepository.AddBriefsAsync(orderDto.Briefs.Select(briefMapper.ToBrief), createdOrder);
 
         var result = mapper.ToOrderDto(order);
         result.Briefs = briefs.Select(briefMapper.ToCampaignOrderBriefDto).ToList();
@@ -35,7 +35,7 @@ internal class OrderService(OrderMapper mapper, BriefMapper briefMapper, IOrderR
             return null;
         }
 
-        var briefs = await briefRepository.GetBriefsByOrderIdAsync(order.OrderId);
+        var briefs = await briefRepository.GetBriefsByOrderNumberAsync(orderNumber);
 
         var result = mapper.ToOrderDto(order);
         result.Briefs = briefs.Select(briefMapper.ToCampaignOrderBriefDto).ToList();

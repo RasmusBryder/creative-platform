@@ -1,4 +1,4 @@
-﻿namespace CreativePlatform.Order;
+﻿namespace CreativePlatform.Order.Domain;
 
 public static class BriefStatus
 {

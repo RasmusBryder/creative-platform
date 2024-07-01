@@ -15,7 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CreativePlatform.Order.Contracts\CreativePlatform.Order.Contracts.csproj" />
+    <ProjectReference Include="..\CreativePlatform.Asset.Contracts\CreativePlatform.Asset.Contracts.csproj" />
+    <ProjectReference Include="..\CreativePlatform.SharedKernel\CreativePlatform.SharedKernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Domain\" />
   </ItemGroup>
 
 </Project>

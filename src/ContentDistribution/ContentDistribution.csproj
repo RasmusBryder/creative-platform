@@ -25,6 +25,7 @@
     <ProjectReference Include="..\CreativePlatform.Campaign\CreativePlatform.Campaign.csproj" />
     <ProjectReference Include="..\CreativePlatform.Content\CreativePlatform.Content.csproj" />
     <ProjectReference Include="..\CreativePlatform.Order\CreativePlatform.Order.csproj" />
+    <ProjectReference Include="..\CreativePlatform.SharedKernel\CreativePlatform.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>

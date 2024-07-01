@@ -1,4 +1,4 @@
-﻿using CreativePlatform.Asset.Contracts;
+﻿using CreativePlatform.Asset.Domain;
 using CreativePlatform.Asset.Endpoints;
 using Riok.Mapperly.Abstractions;
 
@@ -8,8 +8,6 @@ namespace CreativePlatform.Asset.Application;
 internal partial class AssetMapper
 {
     public partial CreateAssetDto ToCreateAssetDto(CreateAssetRequest asset);
-    public partial Asset ToAsset(CreateAssetDto asset);
-    public partial AssetDto ToAssetDto(Asset asset);
-    public partial AssetDetails ToAssetDetails(Asset asset);
-    public partial AssetDetails ToAssetDetails(AssetDto asset);
+    public partial AssetResource ToAsset(CreateAssetDto asset);
+    public partial AssetDto ToAssetDto(Domain.AssetResource assetResource);
 }

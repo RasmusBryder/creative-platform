@@ -1,4 +1,4 @@
-﻿namespace CreativePlatform.Asset;
+﻿namespace CreativePlatform.Asset.Domain;
 
 public static class AssetStatus
 {

@@ -1,4 +1,4 @@
-﻿namespace CreativePlatform.Content;
+﻿namespace CreativePlatform.Content.Application;
 
 internal class DownloadableAssetDto(string assetId)
 {
