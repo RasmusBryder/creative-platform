@@ -1,9 +1,18 @@
 ﻿using CreativePlatform.Order.Application;
+using CreativePlatform.Order.Application.Briefs;
+using CreativePlatform.Order.Application.Orders;
 using CreativePlatform.Order.Infrastructure;
+using CreativePlatform.Order.Infrastructure.Briefs;
+using CreativePlatform.Order.Infrastructure.Campaigns;
+using CreativePlatform.Order.Infrastructure.Notifications;
+using CreativePlatform.Order.Infrastructure.Orders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Reflection;
+using BriefMapper = CreativePlatform.Order.Application.Briefs.BriefMapper;
+using CampaignMapper = CreativePlatform.Order.Application.Campaigns.CampaignMapper;
+using OrderMapper = CreativePlatform.Order.Application.Orders.OrderMapper;
 
 namespace CreativePlatform.Order;
 
